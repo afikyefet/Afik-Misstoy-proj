@@ -5,7 +5,8 @@ export const utilService = {
     loadFromStorage,
     saveToStorage,
     animateCSS,
-    debounce
+    debounce,
+    getUniqueElements
 }
 
 function makeId(length = 6) {
@@ -27,6 +28,23 @@ function makeLorem(size = 100) {
         txt += words[Math.floor(Math.random() * words.length)] + ' '
     }
     return txt
+}
+
+function getUniqueElements(count, array) {
+    if (count <= 0) return []; // If the count is 0 or negative, return an empty array
+
+    // Use a Set to ensure uniqueness and shuffle the array
+    const uniqueSet = new Set(array);
+    const uniqueArray = [...uniqueSet];
+
+    // Shuffle the unique array (Fisher-Yates algorithm)
+    for (let i = uniqueArray.length - 1; i > 0; i--) {
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+        [uniqueArray[i], uniqueArray[randomIndex]] = [uniqueArray[randomIndex], uniqueArray[i]];
+    }
+
+    // Return the first `count` elements or all elements if `count` exceeds the array length
+    return uniqueArray.slice(0, Math.min(count, uniqueArray.length));
 }
 
 function getRandomIntInclusive(min, max) {

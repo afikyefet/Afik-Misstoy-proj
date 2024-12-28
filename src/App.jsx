@@ -1,11 +1,14 @@
 import './App.css'
+import { AppHeader } from './cmps/AddHeader'
+import { ToysIndex } from './pages/ToysIndex'
 
 function App() {
 
 
   return (
     <>
-    <div>he  test eeey</div>
+    <header><AppHeader/></header>
+    <ToysIndex />
     </>
   )
 }
