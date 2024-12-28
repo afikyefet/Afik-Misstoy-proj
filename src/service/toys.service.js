@@ -51,9 +51,9 @@ function getEmptyToy(){
 
 function getRandomToy(){
     return {
-        _id: utilService.makeId,
+        _id: utilService.makeId(),
         name: utilService.makeLorem(1),
-        price: utilService.getRandomIntInclusive(10,100),
+        price: (utilService.getRandomIntInclusive(1,8)*4+0.99),
         labels:utilService.getUniqueElements(3, labels),
         createdAt: Date.now(),
         inStock: true

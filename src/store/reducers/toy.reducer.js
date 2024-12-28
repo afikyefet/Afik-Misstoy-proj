@@ -7,6 +7,8 @@ export const UPDATE_TOY = "UPDATE_TOY"
 export const UNDO_TOYS = "UNDO_TOYS"
 export const REDO_TOYS = "REDO_TOYS"
 
+export const IS_LOADING = "IS_LOADING"
+
 // shopping caret
 
 
@@ -58,5 +60,12 @@ export function toyReducer(state = initialState, cmd = {}){
                 ...state,
                 toys: [...redoToys]
             }
+        case IS_LOADING:
+            return {
+                ...state,
+                isLoading: cmd.isLoading
+            }
+        default:
+            return state
     }
 }

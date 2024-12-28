@@ -1,0 +1,12 @@
+.app-header{
+    nav{
+        margin: 10px;
+        a{
+            padding: 10px;
+        }
+
+        a.active{
+            border: 2px solid paleturquoise;
+        }
+    }
+}

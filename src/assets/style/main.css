@@ -1,3 +1,11 @@
-
+.app-header nav {
+  margin: 10px;
+}
+.app-header nav a {
+  padding: 10px;
+}
+.app-header nav a.active {
+  border: 2px solid paleturquoise;
+}
 
 /*# sourceMappingURL=main.css.map */
