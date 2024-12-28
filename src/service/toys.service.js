@@ -1,10 +1,21 @@
 import { storageService } from "./async-storage.service"
 import { utilService } from "./util.service"
 
+export const toysService = {
+    query,
+    getById,
+    remove,
+    save,
+    getEmptyToy,
+    getRandomToy,
+}
+
 const STORAGE_KEY = 'toyDB'
 
 const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
     'Outdoor', 'Battery Powered']
+
+_CreateToys()
 
 function query(){
     return storageService.query(STORAGE_KEY)
@@ -40,11 +51,38 @@ function getEmptyToy(){
 
 function getRandomToy(){
     return {
-        name: utilService.makeLorem(2),
+        _id: utilService.makeId,
+        name: utilService.makeLorem(1),
         price: utilService.getRandomIntInclusive(10,100),
         labels:utilService.getUniqueElements(3, labels),
         createdAt: Date.now(),
         inStock: true
     }
+}
+
+function _CreateToys(){
+    let toys = utilService.loadFromStorage(STORAGE_KEY)
+
+    if(!toys || !toys.length){
+        toys =[
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+            getRandomToy(),
+        ]
+        utilService.saveToStorage(STORAGE_KEY, toys)
+    }
+
 }
 

@@ -1,4 +1,3 @@
-import './App.css'
 import { AppHeader } from './cmps/AddHeader'
 import { ToysIndex } from './pages/ToysIndex'
 
