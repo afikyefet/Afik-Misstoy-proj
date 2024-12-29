@@ -80,11 +80,12 @@ function animateCSS(el, animation) {
 }
 
 export function debounce(func, timeout = 300) {
-    let timer
-    return (...args) => {
-        clearTimeout(timer)
+    let timer;
+    return function (...args) {
+        const context = this;
+        clearTimeout(timer);
         timer = setTimeout(() => {
-            func.apply(this, args)
-        }, timeout)
-    }
+            func.apply(context, args);
+        }, timeout);
+    };
 }

@@ -17,8 +17,8 @@ export function ToysList({toys, onToyRemove}){
             <h5>Toys List</h5>
             <ul className="toys-ul">
                 {isToys &&
-                    toys.map((toy) => (
-                        <li key={toy._id} className="toy-li" style={{width:"180px"}}>
+                    toys.map((toy, idx) => (
+                        <li key={toy._id+ idx} className="toy-li" style={{width:"180px"}}>
                             <ToyPreview toy={toy} key={toy._id} />
                             <section className="btn-container">
                                 <button onClick={()=> onToyRemove(toy._id)}>delete</button>

@@ -7,16 +7,15 @@ import { ToyFilter } from "../cmps/ToyFilter";
 import { Link, useSearchParams } from 'react-router-dom'
 import { toysService } from "../service/toys.service";
 
-// import {useSelector} from "react-redux"
-
 export function ToysIndex(){
 
     const toys = useSelector(storeSelector => storeSelector.toyModule.toys)
     const isLoading = useSelector(storeSelector => storeSelector.toyModule.isLoading)
-    const filterBy = useSelector(storeSelector => storeSelector.toyModule.FilterBy)
+    const filterBy = useSelector(storeSelector => storeSelector.toyModule.filterBy)
     
     
 	const [searchParams, setSearchParams] = useSearchParams()
+
     const defaultFilter = toysService.getFilterFromSearchParams(searchParams)
     
     
@@ -24,16 +23,13 @@ export function ToysIndex(){
     useEffect(()=>{
         let isFilterSet = false
         
-		if (
-            !isFilterSet &&
-			JSON.stringify(filterBy) !== JSON.stringify(defaultFilter)
-		) {
-            setFilterBy(defaultFilter)
-			setSearchParams(defaultFilter)
-			isFilterSet = true
-		}
+        
+        if (!isFilterSet && JSON.stringify(filterBy) !== JSON.stringify(defaultFilter)) {
+            setSearchParams(filterBy)
+            isFilterSet = true
+        }
         setIsLoading(true)
-        loadToys()
+        loadToys(filterBy)
         .then(() => {
             showSuccessMsg("toys loaded successfully")
         })
@@ -42,7 +38,8 @@ export function ToysIndex(){
             showErrorMsg("Cannot load toys")
         })
         .finally(setIsLoading(false))
-    },[filterBy, searchParams])
+        
+    },[filterBy, setSearchParams])
 
     function onToyRemove(toyId){
         return removeToy(toyId)
@@ -61,9 +58,9 @@ export function ToysIndex(){
     }
 
     function onResetFilter() {
-		const defaultFilter = toysService.getDefaultFilter();
-		setFilterBy(defaultFilter)
-		setSearchParams(defaultFilter)
+		const NewDefaultFilter = toysService.getDefaultFilter();
+		setFilterBy(NewDefaultFilter)
+		setSearchParams(NewDefaultFilter)
 	}
 
     if(isLoading) return <section className="toys-index">Loading...</section>

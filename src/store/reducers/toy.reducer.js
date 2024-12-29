@@ -31,7 +31,7 @@ const initialState = {
 
 
 export function toyReducer(state = initialState, cmd = {}){
-    let lastToys = [...state.toys]
+    let lastToys = [...state.toys]    
     switch(cmd.type){
         //toys
         case SET_TOYS:
@@ -82,7 +82,7 @@ export function toyReducer(state = initialState, cmd = {}){
         case SET_FILTER_BY:
             return {
                 ...state,
-                filterBy: cmd.filterBy
+                filterBy: {...state.filterBy, ...cmd.filterBy}
             }
         default:
             return state

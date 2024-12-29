@@ -2,8 +2,8 @@ import { toysService } from "../../service/toys.service";
 import { ADD_TOY, IS_LOADING, REMOVE_TOY, SELECT_TOY, SET_FILTER_BY, SET_TOYS, UPDATE_TOY } from "../reducers/toy.reducer";
 import { store } from "../store";
 
-export function loadToys(){
-    return toysService.query()
+export function loadToys(filterBy = {}){    
+    return toysService.query(filterBy)
     .then(toys => {
         store.dispatch({type: SET_TOYS, toys})
     })

@@ -19,8 +19,50 @@ export const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
 
 _CreateToys()
 
-function query(){
+function query(filterBy = {}){
     return storageService.query(STORAGE_KEY)
+    .then((toys) => {
+        let filteredToys = [...toys];
+        if (filterBy.name) {
+            const regExp = new RegExp(filterBy.name, "i");
+            filteredToys = filteredToys.filter((toy) => regExp.test(toy.name));
+        }
+
+        if (filterBy.price) {
+            filteredToys = filteredToys.filter((toy) => toy.price >= filterBy.price);
+        }
+
+        if (filterBy.inStock) {
+            switch (filterBy.inStock) {
+                case "In Stock":
+                    filteredToys = filteredToys.filter((toy) => toy.inStock)
+                    break;
+                case "Out Of Stock":
+                    filteredToys = filteredToys.filter((toy) => !toy.inStock)
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
+        const sortOrder = filterBy.descending === "true" ? -1 : 1;
+
+        if (filterBy.sortBy === "alphabet") {
+            filteredToys.sort((a, b) => {
+                if (!a.name || !b.name) return 0; // Handle missing names
+                return sortOrder * a.name.localeCompare(b.name);
+            });
+        } else if (filterBy.sortBy === "price") {
+            filteredToys.sort((a, b) => {
+                const priceA = Number(a.price) || 0;
+                const priceB = Number(b.price) || 0;
+                return sortOrder * (priceA - priceB);
+            });
+        }
+
+        return filteredToys;
+    })
 }
 
 function getById(toyId){
@@ -56,7 +98,9 @@ function getDefaultFilter(){
         name: '',
         price: 0,
         inStock: 'All',
-        labels: []
+        labels: [],
+         sortBy:"none",
+         descending: false 
     }
 }
 
