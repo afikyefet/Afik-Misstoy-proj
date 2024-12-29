@@ -1,4 +1,8 @@
 /* eslint-disable no-case-declarations */
+
+import { toysService } from "../../service/toys.service"
+
+
 //toys
 export const SET_TOYS = "SET_TOYS"
 export const REMOVE_TOY = "REMOVE_TOY"
@@ -6,6 +10,9 @@ export const ADD_TOY = "ADD_TOY"
 export const UPDATE_TOY = "UPDATE_TOY"
 export const UNDO_TOYS = "UNDO_TOYS"
 export const REDO_TOYS = "REDO_TOYS"
+export const SELECT_TOY = "SELECT_TOY"
+
+export const SET_FILTER_BY ="SET_FILTER_BY"
 
 export const IS_LOADING = "IS_LOADING"
 
@@ -16,10 +23,12 @@ export const IS_LOADING = "IS_LOADING"
 
 const initialState = {
     toys: [],
+    selectedToy:{},
     isLoading: false,
-    filterBy: {},
+    filterBy: toysService.getDefaultFilter(),
     lastToys: [],
 }
+
 
 export function toyReducer(state = initialState, cmd = {}){
     let lastToys = [...state.toys]
@@ -60,10 +69,20 @@ export function toyReducer(state = initialState, cmd = {}){
                 ...state,
                 toys: [...redoToys]
             }
+        case SELECT_TOY:
+            return {
+                ...state,
+                selectedToy: state.toys.find(toy => toy._id === cmd.toyId)
+            }
         case IS_LOADING:
             return {
                 ...state,
                 isLoading: cmd.isLoading
+            }
+        case SET_FILTER_BY:
+            return {
+                ...state,
+                filterBy: cmd.filterBy
             }
         default:
             return state

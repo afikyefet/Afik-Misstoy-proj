@@ -1,0 +1,40 @@
+@use '../setup/vars';
+
+.toy-detail{
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    // grid-template-rows: auto auto auto auto;
+    gap: 1rem;
+
+
+    .toy-img{
+        grid-column: 1;
+        // grid-row: 1 / 6;
+        img{
+            height: 400px;
+        }
+        justify-self: end;
+    }
+
+    .toy-info{
+        grid-column: 2;
+        display: grid;
+        grid-template-rows: auto auto auto auto 1fr;
+        align-items: start;
+        gap: 2em;
+        .toy-name{
+            grid-row: 1;
+        }
+        .toy-price{
+            grid-row: 2;
+        }
+        .toy-labels{
+            grid-row: 3;
+        }
+        .toy-stock{
+            grid-row: 4;
+        }
+    }
+
+}

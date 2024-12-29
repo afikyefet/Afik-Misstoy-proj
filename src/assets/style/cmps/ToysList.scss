@@ -9,9 +9,17 @@
         grid-template-columns:repeat(auto-fit, 150px);
         gap: 1rem;
         padding: 1rem;
+        // justify-content: space-between;
 
+        
         .toy-li{
             list-style-type: none;
+            display: grid;
+            height: 100%;
+            .btn-container{
+                align-self: end;
+            }
         }
-    }
+
+    }   
 }

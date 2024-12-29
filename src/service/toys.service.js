@@ -8,11 +8,13 @@ export const toysService = {
     save,
     getEmptyToy,
     getRandomToy,
+    getDefaultFilter,
+    getFilterFromSearchParams,
 }
 
 const STORAGE_KEY = 'toyDB'
 
-const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
+export const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
     'Outdoor', 'Battery Powered']
 
 _CreateToys()
@@ -49,6 +51,15 @@ function getEmptyToy(){
     }
 }
 
+function getDefaultFilter(){
+    return {
+        name: '',
+        price: 0,
+        inStock: 'All',
+        labels: []
+    }
+}
+
 function getRandomToy(){
     return {
         _id: utilService.makeId(),
@@ -58,6 +69,15 @@ function getRandomToy(){
         createdAt: Date.now(),
         inStock: true
     }
+}
+
+function getFilterFromSearchParams(searchParams) {
+	const defaultFilter = getDefaultFilter()
+	const filterBy = {}
+	for (const field in defaultFilter) {		
+		filterBy[field] = searchParams.get(field) || ""
+	}
+	return filterBy
 }
 
 function _CreateToys(){

@@ -5,7 +5,6 @@ export const utilService = {
     loadFromStorage,
     saveToStorage,
     animateCSS,
-    debounce,
     getUniqueElements
 }
 
@@ -80,7 +79,7 @@ function animateCSS(el, animation) {
     })
 }
 
-function debounce(func, timeout = 300) {
+export function debounce(func, timeout = 300) {
     let timer
     return (...args) => {
         clearTimeout(timer)
