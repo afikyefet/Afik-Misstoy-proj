@@ -1,0 +1,53 @@
+@use '../setup/typography';
+@use '../setup/vars';
+
+* {
+    box-sizing: border-box;
+  }
+  
+  html {
+  }
+  
+  body {
+    margin: 0;
+    background-color: vars.$body-background;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .icon{
+    width: 1em;
+    height: 1em;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: .5em 0 .5em;
+  }
+  
+  p {
+    margin: 0 0 1em;
+  }
+  
+  a {
+    text-decoration: none;
+    color: unset;
+  }
+  
+  
+  
+  /* Dont stretch my Media */
+  img,
+  embed,
+  video,
+  object {
+    max-width: 100%
+  }
+
+  .container{
+    padding: 1em 2em;
+    border-radius: 2em;
+  }

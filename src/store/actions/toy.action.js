@@ -1,5 +1,5 @@
 import { toysService } from "../../service/toys.service";
-import { IS_LOADING, REDO_TOYS, REMOVE_TOY, SET_TOYS } from "../reducers/toy.reducer";
+import { ADD_TOY, IS_LOADING, REDO_TOYS, REMOVE_TOY, SET_TOYS, UPDATE_TOY } from "../reducers/toy.reducer";
 import { store } from "../store";
 
 export function loadToys(){
@@ -16,6 +16,10 @@ export function loadToys(){
 export function setIsLoading(isLoading){
     return store.dispatch({type: IS_LOADING, isLoading})
 }
+
+// export function addtoy(toy){
+//     const type = toy._id ? UPDATE_TOY : ADD_TOY
+// }
 
 export function removeToy(toyId){
     return toysService.remove(toyId)

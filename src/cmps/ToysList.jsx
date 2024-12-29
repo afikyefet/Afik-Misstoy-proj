@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { ToyPreview } from "./ToyPreview"
 import { useEffect } from "react"
 
@@ -9,9 +10,9 @@ export function ToysList({toys, onToyRemove}){
     const isToys = toys && toys.length > 0;
 
     return (
-        <section className="toys-list">
+        <section className="toys-list container">
             <h5>Toys List</h5>
-            <ul style={{display: "flex", flexWrap:"wrap"}}>
+            <ul className="toys-ul">
                 {isToys &&
                     toys.map((toy) => (
                         <li key={toy._id} className="toy-li" style={{width:"180px"}}>

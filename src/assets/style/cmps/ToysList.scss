@@ -1,0 +1,17 @@
+@use '../setup/vars';
+
+.toys-list{
+    // background-color: vars.$body-background;
+    background-color: vars.$pastel-gray-light;
+
+    .toys-ul{
+        display: grid;
+        grid-template-columns:repeat(auto-fit, 150px);
+        gap: 1rem;
+        padding: 1rem;
+
+        .toy-li{
+            list-style-type: none;
+        }
+    }
+}

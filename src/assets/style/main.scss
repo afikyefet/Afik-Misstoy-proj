@@ -1,2 +1,11 @@
 @use './cmps/AppHeader.scss';
+@use './cmps/ToysList.scss';
 
+
+@use './setup/vars';
+@use './setup/typography';
+
+
+@use './base/base';
+@use './base/forms';
+@use './base/layouts';

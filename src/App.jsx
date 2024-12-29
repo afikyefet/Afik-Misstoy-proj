@@ -7,6 +7,7 @@ import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { ToyEdit } from './pages/ToyEdit';
 import { ToyDetail } from './pages/ToyDetail';
+import { AppFooter } from './cmps/AppFooter';
 
 function App() {
 
@@ -26,8 +27,10 @@ function App() {
       <Route path='/toys/edit/:toyId?' element={<ToyEdit />} />
       <Route path='/toys/:toyId?' element={<ToyDetail/> } />
     </Routes>
-    {/* <ToysIndex /> */}
       </Router>
+      <footer>
+        <AppFooter />
+      </footer>
     </Provider>
     </>
   )

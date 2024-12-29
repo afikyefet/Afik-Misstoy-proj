@@ -1,12 +1,42 @@
+@use '../setup/vars';
+
 .app-header{
+    background-color: vars.$pastel-green ;
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    align-items: center;
+    
+    .logo{
+        padding: 0.5em 1em;
+        color: vars.$pastel-white;
+        box-shadow: vars.$box-shadow-light;
+        text-shadow: vars.$box-shadow-dark;
+        grid-column: 1;
+    }
+    
     nav{
-        margin: 10px;
-        a{
-            padding: 10px;
+        grid-column: 2;
+        justify-self: center;
+        padding: 1em;
+        box-shadow: vars.$box-shadow-light;
+        font-weight: 500;
+        color: vars.$pastel-white;
+        text-shadow: vars.$box-shadow-dark;
+        a {
+            padding: 0.5em 1em;
+            border-radius: 0.5em;
+            text-decoration: none; // Ensure links don't have underlines
+            color: vars.$pastel-white;
+            // background-color: vars.$pastel-blue;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
         }
 
-        a.active{
-            border: 2px solid paleturquoise;
-        }
+    }
+    
+    .login-container{
+        justify-self: end;
+        grid-column: 3;
+        grid-row: 1;
     }
 }
