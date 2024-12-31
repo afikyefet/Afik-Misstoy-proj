@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react"
 import { debounce } from "../service/util.service"
+import { toysService } from "../service/toys.service"
 
-export function ToyFilter({filterBy, onSetFilter, onResetFilter}){
+export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams}){
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-	const onSetFilterDebaunce = useRef(debounce(onSetFilter)).current
+	onSetFilter = useRef(debounce(onSetFilter, 300))
 
 	useEffect(() => {
-		onSetFilterDebaunce(filterByToEdit)
+		onSetFilter.current(filterByToEdit)	
+		setSearchParams(filterByToEdit)
 	}, [filterByToEdit])
 
 
@@ -26,6 +28,12 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter}){
 		}
 
 		setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
+	}
+
+
+	function setFilterReset() {
+		onResetFilter()
+		setFilterByToEdit(toysService.getDefaultFilter())
 	}
 
 	const {name, price, inStock, sortBy, descending} = filterByToEdit
@@ -86,14 +94,14 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter}){
 				<label htmlFor="descending">descending:</label>
 				<input
 					onChange={handleChange}
-					checked={!!descending}
+					checked={descending}
 					value={descending}
 					type="checkbox"
 					name="descending"
 					id="descending"
 				/>
             </form>
-		<button className="btn-secondary" onClick={()=> onResetFilter()}>reset</button>
+		<button className="btn-secondary" onClick={()=> setFilterReset()}>reset</button>
         </section>
     )
 }

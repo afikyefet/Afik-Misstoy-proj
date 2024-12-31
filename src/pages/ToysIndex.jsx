@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { ToysList } from "../cmps/ToysList";
 import { loadToys, removeToy, setFilterBy, setIsLoading } from "../store/actions/toy.action";
 import { showErrorMsg, showSuccessMsg } from "../service/event-bus.service";
@@ -16,18 +16,19 @@ export function ToysIndex(){
     
 	const [searchParams, setSearchParams] = useSearchParams()
 
-    const defaultFilter = toysService.getFilterFromSearchParams(searchParams)
+    const defaultFilter = useMemo(() => toysService.getFilterFromSearchParams(searchParams), [searchParams]);
     
     
     
     useEffect(()=>{
         let isFilterSet = false
         
-        
         if (!isFilterSet && JSON.stringify(filterBy) !== JSON.stringify(defaultFilter)) {
-            setSearchParams(filterBy)
+            setFilterBy(defaultFilter)
+            // setSearchParams(defaultFilter)
+            
             isFilterSet = true
-        }
+        }        
         setIsLoading(true)
         loadToys(filterBy)
         .then(() => {
@@ -39,7 +40,7 @@ export function ToysIndex(){
         })
         .finally(setIsLoading(false))
         
-    },[filterBy, setSearchParams])
+    },[filterBy])
 
     function onToyRemove(toyId){
         return removeToy(toyId)
@@ -67,8 +68,8 @@ export function ToysIndex(){
     return (
         <section className="toys-index">
             <h3>toys index</h3>
+            <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} onResetFilter={onResetFilter} setSearchParams={setSearchParams} />
             <Link to="/toys/edit" ><button>Add Toy</button></Link>
-            <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} onResetFilter={onResetFilter} />
             {(!isLoading &&<ToysList toys={toys} onToyRemove={onToyRemove} />)}
         </section>
     )

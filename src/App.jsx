@@ -8,16 +8,20 @@ import { About } from './pages/About';
 import { ToyEdit } from './pages/ToyEdit';
 import { ToyDetail } from './pages/ToyDetail';
 import { AppFooter } from './cmps/AppFooter';
+import { DynamicModal } from './cmps/DynamicModal';
+import { UserMsg } from './cmps/UserMsg';
 
 function App() {
 
 
   return (
     <>
-    <Provider store={store}>
       <Router>
+    <Provider store={store}>
 
     <header><AppHeader/></header>
+    <main>
+
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/home' element={<Home />} />
@@ -27,11 +31,14 @@ function App() {
       <Route path='/toys/edit/:toyId?' element={<ToyEdit />} />
       <Route path='/toys/:toyId?' element={<ToyDetail/> } />
     </Routes>
-      </Router>
+    </main>
       <footer>
         <AppFooter />
       </footer>
+      <UserMsg />
+      <DynamicModal />
     </Provider>
+      </Router>
     </>
   )
 }
