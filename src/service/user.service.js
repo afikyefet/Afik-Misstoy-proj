@@ -37,6 +37,7 @@ function login({username, password}){
 
 function signup({ username, password, fullname }) {
     const user = { username, password, fullname}
+    if (!user.imgUrl) user.imgUrl = '/public/default-profile.webp'
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
 }
@@ -51,7 +52,7 @@ function getLoggedinUser() {
 }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname,}
+    const userToSave = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl}
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }

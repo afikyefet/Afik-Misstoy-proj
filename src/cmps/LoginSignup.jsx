@@ -26,6 +26,7 @@ export function LoginSignup() {
             })
             .finally(onCloseModal())
     }
+    
 
     function _signup(credentials) {
         signup(credentials)

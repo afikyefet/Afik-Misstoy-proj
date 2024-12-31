@@ -36,6 +36,12 @@
   grid-column: 3;
   grid-row: 1;
 }
+.app-header .login-container img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
 .toys-list {
   background-color: #f5f5f5;
@@ -242,6 +248,12 @@
 }
 .user-msg .close-btn:hover {
   color: #bdbdbd;
+}
+
+.login-form {
+  display: grid;
+  place-items: center;
+  gap: 0.2em;
 }
 
 * {

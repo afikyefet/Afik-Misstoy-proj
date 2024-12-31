@@ -2,12 +2,15 @@
 
 import { useState } from "react"
 import { userService } from "../service/user.service"
+import { ImgUploader } from "./ImgUploader"
 
 
 
-export function LoginForm({ onLogin, isSignup }) {
+export function LoginForm({ onLogin, isSignup}) {
 
     const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
+    const [isSignupModal, setIsSignUpModal] = useState(isSignup)
+
 
     function handleChange({ target }) {
         const { name: field, value } = target
@@ -19,35 +22,54 @@ export function LoginForm({ onLogin, isSignup }) {
         onLogin(credentials)
     }
 
+    function onUploaded(imgUrl) {
+        setCredentials(prevCredentials => ({ ...prevCredentials, imgUrl }))
+    }
+
     return (
         <form className="login-form" onSubmit={handleSubmit}>
+            <label htmlFor="username">User Name:</label>
             <input
                 type="text"
                 name="username"
+                id="username"
                 value={credentials.username}
                 placeholder="Username"
                 onChange={handleChange}
                 required
                 autoFocus
             />
+            <label htmlFor="password">Choose Password:</label>
             <input
                 type="password"
                 name="password"
+                id="password"
                 value={credentials.password}
                 placeholder="Password"
                 onChange={handleChange}
                 required
                 autoComplete="off"
             />
-            {isSignup && <input
+            {isSignupModal && <>
+            <label htmlFor="fullname">Choose Password:</label>
+            <input
                 type="text"
                 name="fullname"
+                id="fullname"
                 value={credentials.fullname}
                 placeholder="Full name"
                 onChange={handleChange}
                 required
-            />}
-            <button>{isSignup ? 'Signup' : 'Login'}</button>
+            />
+            <ImgUploader onUploaded={onUploaded} />
+            </>}
+            <button>{isSignupModal ? 'Signup' : 'Login'}</button>
+            <a href="#" onClick={()=>setIsSignUpModal(isSignupModal => !isSignupModal)}>
+                    {isSignupModal ?
+                        'Already a member? Login' :
+                        'New user? Signup here'
+                    }
+                </a >
         </form>
     )
 }
