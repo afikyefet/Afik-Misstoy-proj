@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
 import { ToyPreview } from "./ToyPreview"
 import { useEffect } from "react"
 import { setModalData } from "../store/actions/modal.action";
@@ -7,8 +6,6 @@ import { ToyDetail } from "../pages/ToyDetail";
 import { ToyEdit } from "../pages/ToyEdit";
 
 export function ToysList({toys, onToyRemove}){
-
-    const navigate = useNavigate()
 
     useEffect(()=>{
     },[toys])

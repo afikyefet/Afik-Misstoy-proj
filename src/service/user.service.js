@@ -15,6 +15,14 @@ export const userService = {
 
 function getById(userId) {
     return storageService.get(STORAGE_KEY, userId)
+    .then(user => {
+        delete user.password
+        return user
+    })
+    .catch(err =>{
+        console.error('could not get user by id', err)
+        throw err
+    })
 }
 
 function login({username, password}){

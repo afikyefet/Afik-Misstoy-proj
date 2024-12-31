@@ -5,6 +5,8 @@
   display: grid;
   grid-template-columns: 1fr, 1fr, 1fr;
   align-items: center;
+  border: 1px solid #e0e0e0;
+  padding: 0.1em;
 }
 .app-header .logo {
   padding: 0.5em 1em;
@@ -325,13 +327,18 @@ button.btn-text:hover, button.btn-text:focus, input.btn-text:hover, input.btn-te
 
 .main-layout {
   display: grid;
-  grid-template-columns: 12px 1fr 12px;
+  grid-template-columns: 1.6rem 1fr 1.6rem;
 }
 .main-layout > * {
   grid-column: 2;
 }
-.main-layout .full {
+.main-layout.full {
   grid-column: 1/-1;
+}
+
+footer {
+  padding: 1em;
+  text-align: center;
 }
 
 /*# sourceMappingURL=main.css.map */

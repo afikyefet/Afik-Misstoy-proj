@@ -10,6 +10,7 @@ import { ToyDetail } from './pages/ToyDetail';
 import { AppFooter } from './cmps/AppFooter';
 import { DynamicModal } from './cmps/DynamicModal';
 import { UserMsg } from './cmps/UserMsg';
+import { UserDetails } from './pages/UserDetails';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
       <Route path='/toys/edit' element={<ToyEdit />} />
       <Route path='/toys/edit/:toyId?' element={<ToyEdit />} />
       <Route path='/toys/:toyId?' element={<ToyDetail/> } />
+      <Route path='/toys/user/:userId?' element={<UserDetails /> } />
     </Routes>
     </main>
       <footer>

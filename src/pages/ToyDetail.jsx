@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react"
+import { useEffect} from "react"
 import { useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
-import { loadToys, saveToy, setIsLoading, setSelectedToy } from "../store/actions/toy.action"
-import { showErrorMsg, showSuccessMsg } from "../service/event-bus.service"
-import { toysService } from "../service/toys.service"
+import { useNavigate} from "react-router-dom"
+import { loadToys, setIsLoading, setSelectedToy } from "../store/actions/toy.action"
+
 
 export function ToyDetail({toyId}){
 
