@@ -2,29 +2,29 @@
 /* eslint-disable no-unused-vars */
 import { useEffect} from "react"
 import { useSelector } from "react-redux"
-import { useNavigate} from "react-router-dom"
+import { useNavigate, useParams} from "react-router-dom"
 import { loadToys, setIsLoading, setSelectedToy } from "../store/actions/toy.action"
 
 
-export function ToyDetail({toyId}){
+export function ToyDetail(){
 
     const toy = useSelector((storeState) => storeState.toyModule.selectedToy)
     const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
     const navigate = useNavigate()
-    // const params = useParams()
+    const params = useParams()
 
     useEffect(() => {
         setIsLoading(true);
         loadToys()
             .then(() => {
-                setSelectedToy(toyId)                
+                setSelectedToy(params.toyId)                
              })
             .catch((err) => {
                 console.error('Could not load toys:', err);
                 navigate("/toys");
              })
             .finally(() => setIsLoading(false));
-    }, [toyId]);    
+    }, [params.toyId]);    
 
     if (isLoading || !toy) {
         return <div className="toy-detail container">Loading...</div>;
