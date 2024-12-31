@@ -17,9 +17,7 @@ export function ToyDetail(){
         setIsLoading(true);
         loadToys()
             .then(() => {
-                setSelectedToy(params.toyId)
-                console.log(toy);
-                
+                setSelectedToy(params.toyId)                
              })
             .catch((err) => {
                 console.error('Could not load toys:', err);

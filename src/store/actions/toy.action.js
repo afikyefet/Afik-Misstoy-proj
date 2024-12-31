@@ -26,7 +26,7 @@ export function saveToy(toy){
     return toysService.save(toy)
     .then((savedToy)=>{
         store.dispatch({type, toy})
-        savedToy
+        return savedToy
     })
     .catch(err => {
         console.error('toy action -> could not save toy', err);

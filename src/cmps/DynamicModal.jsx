@@ -9,14 +9,15 @@ export function DynamicModal(){
         onCloseModal()
     }
 
-    if(!modalData) return <></>
-    return (
+    if (!modalData) return null
+    const { cmp: Cmp, props } = modalData
+        return (
         <div className="modal-wrapper">
             <section onClick={onModalClose} className="modal-back"></section>
             <section className="modal-container">
                 <button onClick={onModalClose} className="close-btn">X</button>
                 <div className="modal-content">
-                    {modalData.content || "Your modal content here"}
+                {Cmp ? <Cmp {...props} /> : null}
                 </div>
             </section>
         </div>

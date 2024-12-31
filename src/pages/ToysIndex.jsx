@@ -32,7 +32,7 @@ export function ToysIndex(){
         setIsLoading(true)
         loadToys(filterBy)
         .then(() => {
-            showSuccessMsg("toys loaded successfully")
+            // showSuccessMsg("toys loaded successfully")
         })
         .catch((err) => {
             console.error("Error loading toys:", err)

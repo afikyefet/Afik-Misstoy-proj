@@ -13,13 +13,14 @@ export function ToyEdit(){
     const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
     const navigate = useNavigate()
     const params = useParams()
-    const [toyToEdit, setToyToEdit] = useState({})
+    const [toyToEdit, setToyToEdit] = useState(toysService.getEmptyToy())
     const [labels, setLabels] = useState(toy?.labels || [])
 
     useEffect(()=>{
         if(params.toyId){
             setIsLoading(true)
             setSelectedToy(params.toyId)
+
             loadToys()
             .catch(err => {
                 console.error('Could not load toy', err);
@@ -28,11 +29,12 @@ export function ToyEdit(){
             .finally(()=> setIsLoading(false))
         }else{
             setToyToEdit(toyToEdit => (toyToEdit = toysService.getEmptyToy()))
+            setLabels(labels => labels = toysService.getEmptyToy().labels)
         }
     },[params.toyId])
 
     useEffect(() => {
-        if (toy) {
+        if (toy && params.toyId) {
             setToyToEdit({ ...toy });
             setLabels(toy.labels || []);
         }
@@ -71,12 +73,13 @@ export function ToyEdit(){
         setIsLoading(true)
         const updatedToy = { ...toyToEdit, labels };
         saveToy(updatedToy)
-        .then(() => {
+        .then((savedToy) => {
             navigate("/toys")
             console.log('toy successful saved');
-            // showSuccessMsg('Toy saved ', savedToy.name)
+            showSuccessMsg('Toy saved ', savedToy.name)
         })
         .catch(err=>{
+            showErrorMsg('could not save toy')
             console.error('could not save toy', err);
         })
         .finally(() => setIsLoading(false))
@@ -90,16 +93,16 @@ export function ToyEdit(){
             <div className="toy-img"><img alt="Toy picture" src="https://pl.nice-cdn.com/upload/image/product/large/default/toy-place-bear-100cm-1-st-819856-en.jpg" /></div>
             <form className="toy-form">
             <label htmlFor="toy-name" className="toy-name">
-                Toy name: <input value={name} onChange={handleChange} type="text" name="name" id="toy-name" />
+                Toy name: <input value={name || ""} onChange={handleChange} type="text" name="name" id="toy-name" />
             </label>
             <label htmlFor="toy-price" className="toy-price">
-                Toy price: <input value={price} onChange={handleChange} type="number" name="price" id="toy-price" />
+                Toy price: <input value={price || 0} onChange={handleChange} type="number" name="price" id="toy-price" />
             </label>
             <label htmlFor="toy-labels" className="toy-labels">
-                Toy labels: <input value={labels} onChange={handleLabelsChange} type="text" name="labels" id="toy-labels" />
+                Toy labels: <input value={labels || ""} onChange={handleLabelsChange} type="text" name="labels" id="toy-labels" />
             </label>
             <label htmlFor="toy-stock" className="toy-stock">
-                Toy is in stock: <input value={inStock} onChange={handleChange} checked={!!inStock} type="checkbox" name="inStock" id="toy-stock" />
+                Toy is in stock: <input value={inStock || false} onChange={handleChange} checked={Boolean(inStock)} type="checkbox" name="inStock" id="toy-stock" />
             </label>
             </form>
             <button onClick={onSaveToy}  className="btn-main save">Save</button>
