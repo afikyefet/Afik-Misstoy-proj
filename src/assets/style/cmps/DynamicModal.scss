@@ -21,7 +21,7 @@
     box-shadow: vars.$box-shadow-light;
     z-index: 2;
     max-width: 90%;
-    width: 400px;
+    width: minmax(300px, 60%);
     pointer-events: auto; // Enable interaction inside the modal
     animation: fadeIn 0.3s ease-in-out;
     border: 1px solid vars.$border-color-light;

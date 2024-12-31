@@ -2,6 +2,9 @@
 import { useNavigate } from "react-router-dom";
 import { ToyPreview } from "./ToyPreview"
 import { useEffect } from "react"
+import { setModalData } from "../store/actions/modal.action";
+import { ToyDetail } from "../pages/ToyDetail";
+import { ToyEdit } from "../pages/ToyEdit";
 
 export function ToysList({toys, onToyRemove}){
 
@@ -9,6 +12,12 @@ export function ToysList({toys, onToyRemove}){
 
     useEffect(()=>{
     },[toys])
+
+    function setCmpModal(Cmp, props){
+        setModalData({
+            cmp: (props) => <Cmp {...props} />,
+            props: {...props},})
+    }
 
     const isToys = toys && toys.length > 0;
 
@@ -22,8 +31,8 @@ export function ToysList({toys, onToyRemove}){
                             <ToyPreview toy={toy} key={toy._id} />
                             <section className="btn-container">
                                 <button onClick={()=> onToyRemove(toy._id)}>delete</button>
-                                <button onClick={()=> navigate(`/toys/${toy._id}`)}>details</button>
-                                <button onClick={()=> navigate(`/toys/edit/${toy._id}`)}>edit</button>
+                                <button onClick={()=>setCmpModal(ToyDetail, {toyId: toy._id})}> details </button>
+                                <button onClick={()=>setCmpModal(ToyEdit, {toyId: toy._id})}>edit</button>
                                 </section>
                         </li>
                     ))}

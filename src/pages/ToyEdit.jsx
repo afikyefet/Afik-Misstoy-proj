@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
@@ -5,21 +6,22 @@ import { useNavigate, useParams } from "react-router-dom"
 import { loadToys, saveToy, setIsLoading, setSelectedToy } from "../store/actions/toy.action"
 import { showErrorMsg, showSuccessMsg } from "../service/event-bus.service"
 import { toysService } from "../service/toys.service"
+import { onCloseModal } from "../store/actions/modal.action"
 
 
-export function ToyEdit(){
+export function ToyEdit({toyId}){
 	
     const toy = useSelector((storeState) => storeState.toyModule.selectedToy)
     const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
     const navigate = useNavigate()
-    const params = useParams()
+    // const params = useParams()
     const [toyToEdit, setToyToEdit] = useState(toysService.getEmptyToy())
     const [labels, setLabels] = useState(toy?.labels || [])
 
     useEffect(()=>{
-        if(params.toyId){
+        if(toyId){
             setIsLoading(true)
-            setSelectedToy(params.toyId)
+            setSelectedToy(toyId)
 
             loadToys()
             .catch(err => {
@@ -31,10 +33,10 @@ export function ToyEdit(){
             setToyToEdit(toyToEdit => (toyToEdit = toysService.getEmptyToy()))
             setLabels(labels => labels = toysService.getEmptyToy().labels)
         }
-    },[params.toyId])
+    },[toyId])
 
     useEffect(() => {
-        if (toy && params.toyId) {
+        if (toy && toyId) {
             setToyToEdit({ ...toy });
             setLabels(toy.labels || []);
         }
@@ -82,7 +84,10 @@ export function ToyEdit(){
             showErrorMsg('could not save toy')
             console.error('could not save toy', err);
         })
-        .finally(() => setIsLoading(false))
+        .finally(() => {
+            setIsLoading(false)
+            onCloseModal()
+        })
     }
     
     const {name, price, inStock} = toyToEdit
@@ -96,7 +101,7 @@ export function ToyEdit(){
                 Toy name: <input value={name || ""} onChange={handleChange} type="text" name="name" id="toy-name" />
             </label>
             <label htmlFor="toy-price" className="toy-price">
-                Toy price: <input value={price || 0} onChange={handleChange} type="number" name="price" id="toy-price" />
+                Toy price: <input value={price || 0} onChange={handleChange} min={0} type="number" name="price" id="toy-price" />
             </label>
             <label htmlFor="toy-labels" className="toy-labels">
                 Toy labels: <input value={labels || ""} onChange={handleLabelsChange} type="text" name="labels" id="toy-labels" />

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
@@ -6,25 +7,25 @@ import { loadToys, saveToy, setIsLoading, setSelectedToy } from "../store/action
 import { showErrorMsg, showSuccessMsg } from "../service/event-bus.service"
 import { toysService } from "../service/toys.service"
 
-export function ToyDetail(){
+export function ToyDetail({toyId}){
 
     const toy = useSelector((storeState) => storeState.toyModule.selectedToy)
     const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
     const navigate = useNavigate()
-    const params = useParams()
+    // const params = useParams()
 
     useEffect(() => {
         setIsLoading(true);
         loadToys()
             .then(() => {
-                setSelectedToy(params.toyId)                
+                setSelectedToy(toyId)                
              })
             .catch((err) => {
                 console.error('Could not load toys:', err);
                 navigate("/toys");
              })
             .finally(() => setIsLoading(false));
-    }, [params.toyId]);    
+    }, [toyId]);    
 
     if (isLoading || !toy) {
         return <div className="toy-detail container">Loading...</div>;
