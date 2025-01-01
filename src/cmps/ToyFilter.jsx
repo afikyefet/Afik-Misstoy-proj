@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react"
 import { debounce } from "../service/util.service"
-import { toysService } from "../service/toys.service"
+import { labels, toysService } from "../service/toys.service"
+import { LabelsDropdown } from "./LabelsDropdown"
 
 export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams}){
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
@@ -30,20 +31,30 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
 		setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
 	}
 
+    const handleSelectionChange = (selectedOptions) => {
+        setFilterByToEdit((prevFilter) => ({
+            ...prevFilter,
+            labels: [...selectedOptions],
+        }));
+    };
 
-	function setFilterReset() {
-		onResetFilter()
-		setFilterByToEdit(toysService.getDefaultFilter())
-	}
+
+    function setFilterReset() {
+        const defaultFilter = toysService.getDefaultFilter();
+        setFilterByToEdit(defaultFilter);
+        onResetFilter();
+        setSearchParams(defaultFilter);
+    }
 
 	const {name, price, inStock, sortBy, descending} = filterByToEdit
 	
 
     return (
-        <section className="toy-filter">filter
-        <h1>Toy Filter</h1>
+        <section className="toy-filter">
 		<form>
                 {/* Debounced text input */}
+				<section className="filter">
+
                 <label htmlFor="toy-name">
                     Name:
                     <input
@@ -52,7 +63,7 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
                         name="name"
                         id="toy-name"
                         onChange={handleChange}
-                    />
+						/>
                 </label>
 
                 {/* Other inputs with immediate updates */}
@@ -65,8 +76,14 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
                         id="toy-price"
 						min={0}
                         onChange={handleChange}
-                    />
+						/>
                 </label>
+				{/* <LabelsDropdown labels={toysService.getLabelsList()} */}
+				{/* onSelectionChange={handleSelectionChange}
+				/> */}
+					</section>
+					<section className="sort">
+
 				<label htmlFor="toy-stock">
    				 In Stock:
   				  <select
@@ -99,9 +116,10 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
 					type="checkbox"
 					name="descending"
 					id="descending"
-				/>
+					/>
+					</section>
             </form>
-		<button className="btn-secondary" onClick={()=> setFilterReset()}>reset</button>
+		<button className="reset btn-secondary" onClick={()=> setFilterReset()}>clear</button>
         </section>
     )
 }

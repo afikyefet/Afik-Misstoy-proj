@@ -1,0 +1,39 @@
+@use '../setup/vars';
+
+
+.multi-select-dropdown {
+    position: relative;
+    display: inline-block;
+
+    .dropdown-button {
+        padding: 0.5em 1em;
+        background-color: vars.$pastel-white; /* Pastel pink */
+        color: vars.$text-primary;
+        border: none;
+        cursor: pointer;
+        border: 1px solid #ddd;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: vars.$pastel-white;
+        border: 1px solid vars.$border-color-light;
+        border-radius: 0.25em;
+        box-shadow: vars.$box-shadow-light;
+        z-index: 10;
+        padding: 0.5em;
+        width: 200px;
+    }
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 0.25em 0;
+
+        input {
+            margin-right: 0.5em;
+        }
+    }
+}

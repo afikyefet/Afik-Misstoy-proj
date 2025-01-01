@@ -1,0 +1,16 @@
+@use '../setup/vars';
+@use '../setup/mixings';
+
+.toy-preview{
+    display: grid;
+    align-content: space-between;
+    height: 100%;
+    .name{
+        padding: 0.5em;
+    }
+
+    .price{
+        padding: 0.4em;
+        margin-top: 0.4em;
+    }
+}

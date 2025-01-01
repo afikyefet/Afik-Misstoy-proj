@@ -10,6 +10,7 @@ export const toysService = {
     getRandomToy,
     getDefaultFilter,
     getFilterFromSearchParams,
+    getLabelsList,
 }
 
 const STORAGE_KEY = 'toyDB'
@@ -115,6 +116,10 @@ function getRandomToy(){
     }
 }
 
+function getLabelsList(){
+    return labels
+}
+
 function getFilterFromSearchParams(searchParams) {
 	const defaultFilter = getDefaultFilter()
 	const filterBy = {}
@@ -122,6 +127,32 @@ function getFilterFromSearchParams(searchParams) {
 		filterBy[field] = searchParams.get(field) || ""
 	}
 	return filterBy
+}
+
+export function serializeFilterParams(filter) {
+    const params = new URLSearchParams();
+    Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (Array.isArray(value)) {
+            params.set(key, value.join(","));
+        } else {
+            params.set(key, value);
+        }
+    });
+    return params.toString();
+}
+
+export function parseFilterParams(searchParams) {
+    const params = new URLSearchParams(searchParams);
+    const filter = {};
+    params.forEach((value, key) => {
+        if (key === "labels") {
+            filter[key] = value.split(",");
+        } else {
+            filter[key] = value;
+        }
+    });
+    return filter;
 }
 
 function _CreateToys(){

@@ -20,7 +20,7 @@ function App() {
       <Router>
     <Provider store={store}>
 
-    <header><AppHeader/></header>
+    <header className="full main-layout"><AppHeader/></header>
     <main>
 
     <Routes>
@@ -34,7 +34,7 @@ function App() {
       <Route path='/toys/user/:userId?' element={<UserDetails /> } />
     </Routes>
     </main>
-      <footer>
+      <footer className="full"> 
         <AppFooter />
       </footer>
       <UserMsg />

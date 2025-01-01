@@ -2,16 +2,16 @@
 
 button, input{
     cursor: pointer;
-    padding: 0.5em 1em;
+    padding: 0.25em 0.5em;
     margin: 0.1em;
     border: none;
     background-color: vars.$hover-effect ;
     border-radius: 0.5em;
-    border: 2px solid transparent;
+    border: 1px solid vars.$border-color-light;
     color: vars.$text-primary;
     font-weight: 500;
 
-    box-shadow: vars.$box-shadow-light;
+    // box-shadow: vars.$box-shadow-light;
     &.btn-main{
         color: vars.$text-primary;
     }
@@ -28,7 +28,7 @@ button, input{
     }
 
     &:hover, &:focus, &:active{
-        border: 2px solid transparent;
+        border: 1px solid transparent;
         background-color: vars.$pastel-blue;
     }
     

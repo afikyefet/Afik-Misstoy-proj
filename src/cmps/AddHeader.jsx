@@ -33,11 +33,20 @@ export function AppHeader(){
     <section className="app-header">
 
         <h1><Link to="/" className="logo">Miss-toy</Link></h1>
-        <nav>
+        {/* <nav>
             <NavLink to='/home'>Home</NavLink>
             <NavLink to='/toys'>Toys</NavLink>
             <NavLink to='/about'>About us</NavLink>
-        </nav>
+        </nav> */}
+<nav className="main-nav">
+    <label htmlFor="nav-toggle" className="nav-toggle-label">☰</label>
+    <input type="checkbox" id="nav-toggle" className="nav-toggle" aria-label="Toggle navigation" />
+    <div className="nav-links">
+        <NavLink to="/home">Home</NavLink>
+        <NavLink to="/toys">Toys</NavLink>
+        <NavLink to="/about">About us</NavLink>
+    </div>
+</nav>
         <section className="login-container">
             {user ? userLoggedIn :<LoginSignup />}
         </section>

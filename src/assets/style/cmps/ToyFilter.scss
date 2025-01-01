@@ -1,0 +1,24 @@
+@use '../setup/vars';
+
+.toy-filter{
+    display: grid;
+    // grid-template-columns: 1fr 1fr;
+
+    form{
+        display: grid;
+        align-items: center;
+        .filter{
+            grid-area: 1 / 1 / 1 / 1;
+        }
+        
+        .sort{
+            grid-area: 1 / 2 / 1 / 2;
+            justify-self: end;
+        }
+    }
+
+    .reset{
+        justify-self: center;
+    }
+    
+}

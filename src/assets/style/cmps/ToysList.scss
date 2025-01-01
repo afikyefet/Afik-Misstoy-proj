@@ -1,23 +1,27 @@
 @use '../setup/vars';
+@use '../setup/mixings';
 
 .toys-list{
-    // background-color: vars.$body-background;
-    background-color: vars.$pastel-gray-light;
 
     .toys-ul{
         display: grid;
         grid-template-columns:repeat(auto-fit, 150px);
-        gap: 1rem;
-        padding: 1rem;
-        // justify-content: space-between;
+        gap: 1rem 3em;
 
-        
         .toy-li{
+            background-color: vars.$pastel-gray-light;
+            box-shadow: vars.$box-shadow-light;
+            border: 1px solid vars.$border-color-light;
             list-style-type: none;
             display: grid;
             height: 100%;
+            // padding: 0.4em;
+            border-radius: 0.5em;
             .btn-container{
                 align-self: end;
+                button{
+                    padding: 0;
+                }
             }
         }
 

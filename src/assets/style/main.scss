@@ -1,13 +1,18 @@
 @use './cmps/AppHeader.scss';
+@use './cmps/AppFooter.scss';
 @use './cmps/ToysList.scss';
+@use './cmps/ToyPreview.scss';
 @use './cmps/ToyEdit.scss';
 @use './cmps/ToyDetail.scss';
+@use './cmps/ToyFilter.scss';
 @use './cmps/DynamicModal.scss';
 @use './cmps/UserMsg.scss';
 @use './cmps/LoginForm.scss';
+@use './cmps/LabelDropdown.scss';
 
 
 @use './setup/vars';
+@use './setup/mixings';
 @use './setup/typography';
 
 
