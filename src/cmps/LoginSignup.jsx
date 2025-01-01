@@ -11,6 +11,8 @@ export function LoginSignup() {
     const [isSignup, setIsSignUp] = useState(false)
 
     function onLogin(credentials) {
+        // console.log(isSignup);
+        
         isSignup ? _signup(credentials) : _login(credentials)
     }
 
@@ -38,8 +40,12 @@ export function LoginSignup() {
     function openLoginModal() {
         setModalData({
             cmp: (props) => <LoginForm {...props} />,
-            props: { onLogin, isSignup: isSignup },
+            props: { onLogin, isSignup: isSignup, onIsSignup },
         })
+    }
+
+    function onIsSignup(isSignup){
+        setIsSignUp(isSignup)
     }
 
     return (

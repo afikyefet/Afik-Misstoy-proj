@@ -18,6 +18,39 @@ const STORAGE_KEY = 'toyDB'
 export const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
     'Outdoor', 'Battery Powered']
 
+const toyNames = [
+        "Talking Doll",
+        "Remote-Control Car",
+        "Action Figure",
+        "Building Blocks",
+        "Stuffed Bear",
+        "Rubik's Cube",
+        "Toy Train Set",
+        "Kite",
+        "Yo-Yo",
+        "Marble Set",
+        "Lego City",
+        "Slinky",
+        "Puzzle Game",
+        "Toy Robot",
+        "Bubble Maker",
+        "Water Gun",
+        "Barbie Dream House",
+        "Race Track Set",
+        "Toy Drum Kit",
+        "Magic Kit",
+        "Play-Doh Set",
+        "Nerf Blaster",
+        "Toy Dinosaur",
+        "Toy Kitchen Set",
+        "Bowling Set",
+        "Bouncy Ball",
+        "Scooter",
+        "Mini Basketball Hoop",
+        "Chess Set",
+        "Finger Puppets"
+      ];
+
 _CreateToys()
 
 function query(filterBy = {}){
@@ -108,7 +141,7 @@ function getDefaultFilter(){
 function getRandomToy(){
     return {
         _id: utilService.makeId(),
-        name: utilService.makeLorem(1),
+        name: toyNames[utilService.getRandomIntInclusive(0,toyNames.length-1)],
         price: (utilService.getRandomIntInclusive(1,8)*4+0.99),
         labels:utilService.getUniqueElements(3, labels),
         createdAt: Date.now(),

@@ -85,19 +85,19 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
 
 				<label htmlFor="toy-stock">
    				 In Stock:
-  				  <select
+  					<select
    				     value={inStock || "All"}
      				   name="inStock"
      				   id="toy-stock"
       				  onChange={handleChange}
    					 >
-        <option value="All">All</option>
-        <option value="In Stock">In Stock</option>
-        <option value="Out Of Stock">Out Of Stock</option>
-    </select>
-</label>
-<label htmlFor="sort-by">Sort by:
+        				<option value="All">All</option>
+        				<option value="In Stock">In Stock</option>
+        				<option value="Out Of Stock">Out Of Stock</option>
+   					</select>
+				</label>
 
+				<label htmlFor="sort-by">Sort by:
 				<select
 				name="sortBy"
 				id="sort-by"

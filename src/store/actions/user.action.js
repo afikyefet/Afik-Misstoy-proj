@@ -3,6 +3,7 @@ import { SET_USER } from "../reducers/user.reducer"
 import { store } from "../store"
 
 export function login(credentials) {
+    console.log(credentials);
     return userService.login(credentials)
         .then((user) => {
             store.dispatch({ type: SET_USER, user })
@@ -19,6 +20,7 @@ export function signup(credentials) {
             store.dispatch({ type: SET_USER, user })
         })
         .catch((err) => {
+            
             console.log('user actions -> Cannot signup', err)
             throw err
         })

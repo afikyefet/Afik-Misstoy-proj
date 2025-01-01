@@ -6,10 +6,13 @@ import { ImgUploader } from "./ImgUploader"
 
 
 
-export function LoginForm({ onLogin, isSignup}) {
+export function LoginForm({ onLogin, isSignup, onIsSignup}) {
 
     const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
     const [isSignupModal, setIsSignUpModal] = useState(isSignup)
+
+    console.log(credentials);
+    
 
 
     function handleChange({ target }) {
@@ -17,10 +20,20 @@ export function LoginForm({ onLogin, isSignup}) {
         setCredentials(prevCreds => ({ ...prevCreds, [field]: value }))
     }
 
+    function signupChange(){
+        setIsSignUpModal(isSignupModal => !isSignupModal)
+        onIsSignup(isSignupModal)
+        // console.log(isSignup);
+        // console.log(isSignupModal);
+        
+        
+    }
+
     function handleSubmit(ev) {
         ev.preventDefault()
         onLogin(credentials)
     }
+
 
     function onUploaded(imgUrl) {
         setCredentials(prevCredentials => ({ ...prevCredentials, imgUrl }))
@@ -64,7 +77,7 @@ export function LoginForm({ onLogin, isSignup}) {
             <ImgUploader onUploaded={onUploaded} />
             </>}
             <button>{isSignupModal ? 'Signup' : 'Login'}</button>
-            <a href="#" onClick={()=>setIsSignUpModal(isSignupModal => !isSignupModal)}>
+            <a href="#" onClick={()=>signupChange()}>
                     {isSignupModal ?
                         'Already a member? Login' :
                         'New user? Signup here'
