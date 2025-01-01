@@ -9,11 +9,12 @@
         align-items: center;
         .filter{
             grid-area: 1 / 1 / 1 / 1;
+            justify-self: center;
         }
         
         .sort{
             grid-area: 1 / 2 / 1 / 2;
-            justify-self: end;
+            justify-self: center;
         }
     }
 

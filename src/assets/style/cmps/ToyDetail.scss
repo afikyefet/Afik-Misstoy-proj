@@ -12,9 +12,6 @@
         // grid-row: 1 / 6;
         img{
             height: 400px;
-            width: 100%; /* Adjust to the desired width */
-            height: auto; /* Maintain aspect ratio */
-            object-fit: contain;
         }
         justify-self: end;
     }
@@ -36,6 +33,25 @@
         }
         .toy-stock{
             grid-row: 4;
+        }
+    }
+
+    .review-list{
+        grid-column: 1/-1;
+        color:vars.$text-primary;
+        justify-self: center;
+        .review-ul{
+            list-style-type: none;
+            width: 100%;
+            .review-li{
+                background-color: vars.$pastel-white;
+                border: 1px solid vars.$border-color-light;
+                padding: 0.5em 1em;
+                margin: 0.5em;
+                border-radius: 4px;
+                width: 100%;
+                box-shadow: vars.$box-shadow-light;
+            }
         }
     }
 

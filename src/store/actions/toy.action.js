@@ -26,6 +26,7 @@ export function saveToy(toy){
     return toysService.save(toy)
     .then((savedToy)=>{
         store.dispatch({type, toy})
+        setSelectedToy(savedToy._id)
         return savedToy
     })
     .catch(err => {

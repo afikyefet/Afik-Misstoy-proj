@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react"
 import { debounce } from "../service/util.service"
-import { labels, toysService } from "../service/toys.service"
-import { LabelsDropdown } from "./LabelsDropdown"
+import { toysService } from "../service/toys.service"
 
 export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams}){
 	const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
@@ -31,12 +30,12 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
 		setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
 	}
 
-    const handleSelectionChange = (selectedOptions) => {
-        setFilterByToEdit((prevFilter) => ({
-            ...prevFilter,
-            labels: [...selectedOptions],
-        }));
-    };
+    // const handleSelectionChange = (selectedOptions) => {
+    //     setFilterByToEdit((prevFilter) => ({
+    //         ...prevFilter,
+    //         labels: [...selectedOptions],
+    //     }));
+    // };
 
 
     function setFilterReset() {
@@ -51,7 +50,7 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
 
     return (
         <section className="toy-filter">
-		<form>
+		<form className="container">
                 {/* Debounced text input */}
 				<section className="filter">
 
@@ -97,7 +96,8 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
         <option value="Out Of Stock">Out Of Stock</option>
     </select>
 </label>
-<label htmlFor="sort-by">Sort by:</label>
+<label htmlFor="sort-by">Sort by:
+
 				<select
 				name="sortBy"
 				id="sort-by"
@@ -108,6 +108,7 @@ export function ToyFilter({filterBy, onSetFilter, onResetFilter, setSearchParams
 					<option name="price" id="price">price </option>
 					<option name="alphabet" id="alphabet">alphabet</option>
 				</select>
+					</label>
 				<label htmlFor="descending">descending:</label>
 				<input
 					onChange={handleChange}

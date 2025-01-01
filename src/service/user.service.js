@@ -37,6 +37,8 @@ function login({username, password}){
 
 function signup({ username, password, fullname }) {
     const user = { username, password, fullname}
+
+    
     if (!user.imgUrl) user.imgUrl = '/public/default-profile.webp'
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)

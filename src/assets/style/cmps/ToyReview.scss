@@ -1,0 +1,9 @@
+@use '../setup/vars';
+
+
+.toy-review{
+    grid-column: 1/-1;
+    display: grid;
+    justify-items: center;
+    
+}

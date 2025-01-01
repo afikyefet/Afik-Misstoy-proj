@@ -112,7 +112,8 @@ function getRandomToy(){
         price: (utilService.getRandomIntInclusive(1,8)*4+0.99),
         labels:utilService.getUniqueElements(3, labels),
         createdAt: Date.now(),
-        inStock: true
+        inStock: true,
+        msgs: [],
     }
 }
 

@@ -38,3 +38,17 @@ button, input{
     }
 
 }
+
+textarea{
+    cursor: pointer;
+    padding: 0.25em 0.5em;
+    margin: 0.1em;
+    border: none;
+    background-color: vars.$hover-effect ;
+    border-radius: 0.5em;
+    border: 1px solid vars.$border-color-light;
+    color: vars.$text-primary;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+
+}

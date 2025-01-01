@@ -67,7 +67,6 @@ export function ToysIndex(){
     if(isLoading) return <section className="toys-index">Loading...</section>
     return (
         <section className="toys-index">
-            <h3>toys index</h3>
             <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} onResetFilter={onResetFilter} setSearchParams={setSearchParams} />
             <Link to="/toys/edit" ><button>Add Toy</button></Link>
             {(!isLoading &&<ToysList toys={toys} onToyRemove={onToyRemove} />)}

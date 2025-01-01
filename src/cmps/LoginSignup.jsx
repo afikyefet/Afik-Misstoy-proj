@@ -43,20 +43,16 @@ export function LoginSignup() {
     }
 
     return (
-        <div className="login-page">
-            <button onClick={openLoginModal}>{isSignup ? "Sign Up Now!" : "Log In"}</button>
-            {/* <LoginForm
-                onLogin={onLogin}
-                isSignup={isSignup}
-            /> */}
-            <div className="btns">
+        <section className="login-page">
+            <button className='login-btn' onClick={openLoginModal}>{isSignup ? "Sign Up Now!" : "Log In"}</button>
+            <section className="btns">
                 <a href="#" onClick={() => setIsSignUp(!isSignup)}>
                     {isSignup ?
                         'Already a member? Login' :
                         'New user? Signup here'
                     }
                 </a >
-            </div>
-        </div >
+            </section>
+        </section >
     )
 }

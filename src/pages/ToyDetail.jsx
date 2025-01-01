@@ -3,12 +3,16 @@
 import { useEffect} from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams} from "react-router-dom"
-import { loadToys, setIsLoading, setSelectedToy } from "../store/actions/toy.action"
+import { loadToys, saveToy, setIsLoading, setSelectedToy } from "../store/actions/toy.action"
+import { ToyReview } from "../cmps/ToyReview"
+import { utilService } from "../service/util.service"
+import { showErrorMsg, showSuccessMsg } from "../service/event-bus.service"
 
 
 export function ToyDetail(){
 
     const toy = useSelector((storeState) => storeState.toyModule.selectedToy)
+    const user = useSelector((storeState) => storeState.userModule.user)
     const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
     const navigate = useNavigate()
     const params = useParams()
@@ -25,6 +29,22 @@ export function ToyDetail(){
              })
             .finally(() => setIsLoading(false));
     }, [params.toyId]);    
+
+
+    function onReviewSave(txt){
+        if(toy && user){
+        const newMsg = {id: utilService.makeId(), txt: txt, by:{_id: user._id, fullname: user.fullname}}
+        const toyToSave = {...toy, msgs: [newMsg, ...toy.msgs]}
+        saveToy(toyToSave)
+        .then(()=>{
+            showSuccessMsg('review was saves successfully')
+        })
+        .catch(err => {
+            showErrorMsg('could not save review')
+            console.error(err);
+        })
+        }        
+    }
 
     if (isLoading || !toy) {
         return <div className="toy-detail container">Loading...</div>;
@@ -45,6 +65,22 @@ export function ToyDetail(){
             <h3 className="toy-stock">
                 in Stock: {(toy?.inStock ? "In Stock!" : "Out Of Stock")}
             </h3>
+            </section>
+            {(user && <ToyReview onReviewSave={onReviewSave} />)}
+            <section className="review-list">
+                {toy?.msgs?.length > 0 && (
+                    <>
+                    <h5>reviews:</h5>
+                    <ul className="review-ul">
+                        {toy.msgs.map((review) => (
+                            <li className="review-li" key={review.id}>
+                                <h4>{review.by.fullname}</h4>
+                                <p>{review.txt}</p>
+                            </li>
+                        ))}
+                    </ul>
+                        </>
+                )}
             </section>
         </section>
     )

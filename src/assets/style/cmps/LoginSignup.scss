@@ -1,0 +1,13 @@
+.login-page{
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    .login-btn{
+        grid-column: 1;
+    }
+
+    .btns{
+        grid-column: 2;
+        font-size: 0.8em;
+    }
+}
