@@ -5,7 +5,6 @@ import { store } from "../store"
 export function login(credentials) {
     return userService.login(credentials)
         .then((user) => {
-            console.log('user login:', user)
             store.dispatch({ type: SET_USER, user })
         })
         .catch((err) => {

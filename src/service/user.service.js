@@ -12,6 +12,7 @@ export const userService = {
     getEmptyCredentials,
     getLoggedinUser,
 }
+_setAdmin()
 
 function getById(userId) {
     return storageService.get(STORAGE_KEY, userId)
@@ -36,12 +37,29 @@ function login({username, password}){
 }
 
 function signup({ username, password, fullname }) {
-    const user = { username, password, fullname}
+    const user = { username, password, fullname, isAdmin: false}
 
     
     if (!user.imgUrl) user.imgUrl = '/public/default-profile.webp'
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
+}
+
+function _setAdmin(){
+    const adminUser = {
+        username: 'admin',
+        password: 'admin',
+        fullname: 'admin admond',
+        imgUrl: '/public/default-profile.webp',
+        isAdmin: true
+    }
+    storageService.query(STORAGE_KEY)
+    .then(users => {
+        const user = users.find(user => user.username === adminUser.username)
+        if(user) return
+        storageService.post(STORAGE_KEY, adminUser)
+    })
+
 }
 
 function logout() {
@@ -54,7 +72,7 @@ function getLoggedinUser() {
 }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl}
+    const userToSave = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl, isAdmin: user.isAdmin}
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }

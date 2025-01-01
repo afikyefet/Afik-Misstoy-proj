@@ -46,6 +46,18 @@ export function removeToy(toyId){
     )
 }
 
+
+export function removeReview(toy, reviewId){
+    const newReviews = toy.msgs.filter((review) => review.id !== reviewId)
+    const toyToSave = {...toy, msgs: newReviews}
+    return saveToy(toyToSave)
+    .catch((err)=>{
+        console.log('toy action -> could not remove review');
+        throw err
+    })
+}
+
+
 export function setFilterBy(filterBy) {
     store.dispatch({ type: SET_FILTER_BY, filterBy })
 }

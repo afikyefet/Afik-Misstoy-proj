@@ -3,7 +3,7 @@
 import { useEffect} from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams} from "react-router-dom"
-import { loadToys, saveToy, setIsLoading, setSelectedToy } from "../store/actions/toy.action"
+import { loadToys, removeReview, saveToy, setIsLoading, setSelectedToy } from "../store/actions/toy.action"
 import { ToyReview } from "../cmps/ToyReview"
 import { utilService } from "../service/util.service"
 import { showErrorMsg, showSuccessMsg } from "../service/event-bus.service"
@@ -46,6 +46,16 @@ export function ToyDetail(){
         }        
     }
 
+    function onReviewRemove(reviewId){
+        removeReview(toy, reviewId)
+        .then(()=>{
+            showSuccessMsg('review was successfully removed')
+        })
+        .catch(()=>{
+            showErrorMsg('could not remove review')
+        })
+    }
+
     if (isLoading || !toy) {
         return <div className="toy-detail container">Loading...</div>;
     }    
@@ -76,6 +86,9 @@ export function ToyDetail(){
                             <li className="review-li" key={review.id}>
                                 <h4>{review.by.fullname}</h4>
                                 <p>{review.txt}</p>
+                                {((user?.isAdmin || review?.by._id === user?._id) && 
+                            <button className="review-remove" onClick={()=>onReviewRemove(review.id)} >remove</button>
+                            )}
                             </li>
                         ))}
                     </ul>

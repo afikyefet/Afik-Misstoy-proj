@@ -4,8 +4,11 @@ import { useEffect } from "react"
 import { setModalData } from "../store/actions/modal.action";
 import { ToyEdit } from "../pages/ToyEdit";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export function ToysList({toys, onToyRemove}){
+
+    const user = useSelector(storeState => storeState.userModule.user)
 
     const navigate = useNavigate()
 
@@ -28,9 +31,10 @@ export function ToysList({toys, onToyRemove}){
                         <li key={toy._id+ idx} className="toy-li" style={{width:"180px"}}>
                             <ToyPreview toy={toy} key={toy._id} />
                             <section className="btn-container">
-                                <button onClick={()=> onToyRemove(toy._id)}>delete</button>
                                 <button onClick={()=>navigate(`/toys/${toy._id}`)}> details </button>
-                                <button onClick={()=>setCmpModal(ToyEdit, {toyId: toy._id})}>edit</button>
+
+                                {( user?.isAdmin && <><button onClick={()=>setCmpModal(ToyEdit, {toyId: toy._id})}>edit</button>
+                                <button onClick={()=> onToyRemove(toy._id)}>delete</button></>)}
                                 </section>
                         </li>
                     ))}

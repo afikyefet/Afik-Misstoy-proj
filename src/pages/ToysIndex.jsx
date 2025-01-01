@@ -12,6 +12,8 @@ export function ToysIndex(){
     const toys = useSelector(storeSelector => storeSelector.toyModule.toys)
     const isLoading = useSelector(storeSelector => storeSelector.toyModule.isLoading)
     const filterBy = useSelector(storeSelector => storeSelector.toyModule.filterBy)
+    const user = useSelector(storeState => storeState.userModule.user)
+
     
     
 	const [searchParams, setSearchParams] = useSearchParams()
@@ -68,7 +70,7 @@ export function ToysIndex(){
     return (
         <section className="toys-index">
             <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} onResetFilter={onResetFilter} setSearchParams={setSearchParams} />
-            <Link to="/toys/edit" ><button>Add Toy</button></Link>
+            {( user?.isAdmin &&<Link to="/toys/edit" ><button>Add Toy</button></Link>)}
             {(!isLoading &&<ToysList toys={toys} onToyRemove={onToyRemove} />)}
         </section>
     )
