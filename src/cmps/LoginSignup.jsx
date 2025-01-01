@@ -1,19 +1,20 @@
-import { useState } from 'react'
 
 import { showErrorMsg, showSuccessMsg } from '../service/event-bus.service.js'
-import { login, signup } from '../store/actions/user.action.js'
+import { login, signup, toggleIsSignup } from '../store/actions/user.action.js'
 import { LoginForm } from './LoginForm.jsx'
 import { onCloseModal, setModalData } from '../store/actions/modal.action.js'
+import { useSelector } from 'react-redux'
 
 
 export function LoginSignup() {
-
-    const [isSignup, setIsSignUp] = useState(false)
+    const isSignup = useSelector(storeState => storeState.userModule.isSignup)
 
     function onLogin(credentials) {
-        // console.log(isSignup);
-        
-        isSignup ? _signup(credentials) : _login(credentials)
+        if (isSignup) {
+            _signup(credentials);
+        } else {
+            _login(credentials);
+        }
     }
 
     function _login(credentials) {
@@ -36,23 +37,23 @@ export function LoginSignup() {
             .catch(() => { showErrorMsg('Oops try again') })
             .finally(onCloseModal())
     }
+    function toggleIsSignup2(){
+        toggleIsSignup()
+    }
 
     function openLoginModal() {
         setModalData({
             cmp: (props) => <LoginForm {...props} />,
-            props: { onLogin, isSignup: isSignup, onIsSignup },
+            props: { onLogin, isSignup: isSignup, toggleIsSignup2 },
         })
     }
 
-    function onIsSignup(isSignup){
-        setIsSignUp(isSignup)
-    }
 
     return (
         <section className="login-page">
             <button className='login-btn' onClick={openLoginModal}>{isSignup ? "Sign Up Now!" : "Log In"}</button>
             <section className="btns">
-                <a href="#" onClick={() => setIsSignUp(!isSignup)}>
+                <a href="#" onClick={() => toggleIsSignup2()}>
                     {isSignup ?
                         'Already a member? Login' :
                         'New user? Signup here'

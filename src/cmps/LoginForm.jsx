@@ -3,16 +3,14 @@
 import { useState } from "react"
 import { userService } from "../service/user.service"
 import { ImgUploader } from "./ImgUploader"
+import { useSelector } from "react-redux"
 
 
 
-export function LoginForm({ onLogin, isSignup, onIsSignup}) {
+export function LoginForm({ onLogin, toggleIsSignup2}) {
 
+    const isSignup = useSelector(storeState => storeState.userModule.isSignup)
     const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
-    const [isSignupModal, setIsSignUpModal] = useState(isSignup)
-
-    console.log(credentials);
-    
 
 
     function handleChange({ target }) {
@@ -20,20 +18,12 @@ export function LoginForm({ onLogin, isSignup, onIsSignup}) {
         setCredentials(prevCreds => ({ ...prevCreds, [field]: value }))
     }
 
-    function signupChange(){
-        setIsSignUpModal(isSignupModal => !isSignupModal)
-        onIsSignup(isSignupModal)
-        // console.log(isSignup);
-        // console.log(isSignupModal);
-        
-        
-    }
-
     function handleSubmit(ev) {
         ev.preventDefault()
         onLogin(credentials)
     }
 
+    
 
     function onUploaded(imgUrl) {
         setCredentials(prevCredentials => ({ ...prevCredentials, imgUrl }))
@@ -63,7 +53,7 @@ export function LoginForm({ onLogin, isSignup, onIsSignup}) {
                 required
                 autoComplete="off"
             />
-            {isSignupModal && <>
+            {isSignup && <>
             <label htmlFor="fullname">Choose Password:</label>
             <input
                 type="text"
@@ -76,13 +66,7 @@ export function LoginForm({ onLogin, isSignup, onIsSignup}) {
             />
             <ImgUploader onUploaded={onUploaded} />
             </>}
-            <button>{isSignupModal ? 'Signup' : 'Login'}</button>
-            <a href="#" onClick={()=>signupChange()}>
-                    {isSignupModal ?
-                        'Already a member? Login' :
-                        'New user? Signup here'
-                    }
-                </a >
+            <button>{isSignup ? 'Signup' : 'Login'}</button>
         </form>
     )
 }

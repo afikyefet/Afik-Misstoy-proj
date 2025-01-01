@@ -25,6 +25,7 @@ function App() {
 
     <Routes>
       <Route path='/' element={<Home />} />
+      <Route path='/afik-miss-toy-proj/home' element={<Home />} />
       <Route path='/home' element={<Home />} />
       <Route path='/about' element={<About />} />
       <Route path='/toys' element={<ToysIndex />} />
